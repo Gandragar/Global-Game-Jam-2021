@@ -8,19 +8,22 @@ public class StartConversation : MonoBehaviour
 {
     public string Name;
     public Sprite imageIcon;
-    public enum itemType { computador, cabo, faca };
-    public itemType itemWanted;
-
+    public clientsHandler.itemType itemWanted;
     [TextArea] public string[] dialogue;
 
+    [TextArea] public string correctItemDialogue;
+    [TextArea] public string incorrectItemDialogue;
+
     private GameObject nextButton;
+    private GameObject endButton;
     private TextMeshProUGUI dialogueText;
     private int curIndex;
     private float showChatTimer;
     private float counter;
     private bool firstTime;
+    [HideInInspector] public bool itemReceived;
     private GameObject dialoguePainel;
-    private conversationsHandler index;
+    private conversationsHandler gameManager;
 
     private float delay = 0.02f;
     private string currentText = "";
@@ -28,8 +31,8 @@ public class StartConversation : MonoBehaviour
 
     private void Start()
     {
-        index = conversationsHandler.current;
-        index.curIndex = 0;
+        gameManager = conversationsHandler.current;
+        gameManager.curIndex = 0;
         curIndex = 0;
         dialoguePainel = GameObject.FindGameObjectWithTag("Dialogue");
 
@@ -37,12 +40,15 @@ public class StartConversation : MonoBehaviour
         dialoguePainel.transform.GetChild(1).GetComponent<Image>().sprite = imageIcon;
         dialogueText = dialoguePainel.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
         nextButton = dialoguePainel.transform.GetChild(3).gameObject;
+        endButton = dialoguePainel.transform.GetChild(4).gameObject;
         nextButton.SetActive(false);
+        endButton.SetActive(false);
 
-        dialoguePainel.transform.position = index.hiddenDialoguePos.position;
-        showChatTimer = 1f;
+        dialoguePainel.transform.position = gameManager.hiddenDialoguePos.position;
+        showChatTimer = 2f;
         counter = 0f;
         firstTime = true;
+        itemReceived = false;
     }
 
     private void Update()
@@ -50,37 +56,53 @@ public class StartConversation : MonoBehaviour
         if (firstTime)
         {
             counter += Time.deltaTime;
-            if (counter >= showChatTimer && firstTime)
+            if (counter >= showChatTimer && firstTime && !itemReceived)
             {
-                dialoguePainel.transform.position = index.shownDialoguePos.position;
-                StartCoroutine(ShowText(dialogue[index.curIndex]));
+                StartCoroutine(ShowText(dialogue[gameManager.curIndex]));
                 firstTime = false;
             }
         }
-        else if (curIndex < index.curIndex && dialogue.Length >= (index.curIndex + 1))
+        else if (curIndex < gameManager.curIndex && dialogue.Length >= (gameManager.curIndex + 1) && !itemReceived)
         {
-            curIndex = index.curIndex;
-            StartCoroutine(ShowText(dialogue[index.curIndex]));
+            curIndex = gameManager.curIndex;
+            StartCoroutine(ShowText(dialogue[gameManager.curIndex]));
         }
     }
 
     IEnumerator ShowText(string dialogues)
     {
-        if (dialogue.Length <= (index.curIndex + 1))
+        dialoguePainel.transform.position = gameManager.shownDialoguePos.position;
+        if (dialogue.Length <= (gameManager.curIndex + 1))
             nextButton.SetActive(false);
-        for (int i = 0; i < dialogues.Length; i++)
+        for (int i = 0; i < dialogues.Length+1; i++)
         {
             currentText = dialogues.Substring(0, i);
             dialogueText.text = currentText;
             yield return new WaitForSeconds(delay);
         }
-        if (dialogue.Length > (index.curIndex + 1))
+        if (dialogue.Length > (gameManager.curIndex + 1))
             nextButton.SetActive(true);
 
     }
 
-    //private void OnTriggerStay2D(Collider2D collision)
-    //{
-    //    if(collision.transform)
-    //}
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        dragItem item = collision.gameObject.GetComponent<dragItem>();
+        if (collision.transform.CompareTag("pickup") && !itemReceived)
+        {
+            StopAllCoroutines();
+            if (itemWanted == item.item)
+            {
+                gameManager.playerMoney += 100;
+                StartCoroutine(ShowText(correctItemDialogue));
+            }
+            else
+            {
+                StartCoroutine(ShowText(incorrectItemDialogue));
+            }
+            itemReceived = true;
+            endButton.SetActive(true);
+            Destroy(collision.gameObject);
+        }
+    }
 }
