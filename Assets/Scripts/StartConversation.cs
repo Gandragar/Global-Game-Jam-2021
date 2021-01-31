@@ -18,8 +18,8 @@ public class StartConversation : MonoBehaviour
 
     private GameObject nextButton;
     private GameObject endButton;
-    private GameObject endGameButton;
-    private GameObject payButton;
+    [HideInInspector]public GameObject endGameButton;
+    [HideInInspector]public GameObject payButton;
     private TextMeshProUGUI dialogueText;
     private int curIndex;
     private float showChatTimer;
@@ -80,9 +80,10 @@ public class StartConversation : MonoBehaviour
             curIndex = gameManager.curIndex;
             StartCoroutine(ShowText(dialogue[gameManager.curIndex]));
         }
+
     }
 
-    IEnumerator ShowText(string dialogues)
+    public IEnumerator ShowText(string dialogues)
     {
         dialoguePainel.transform.position = gameManager.shownDialoguePos.position;
         if (dialogue.Length <= (gameManager.curIndex + 1))

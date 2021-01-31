@@ -47,8 +47,8 @@ public class clientsHandler : MonoBehaviour
     {
         if (curClientNumber < clientsPerDay)
         {
-            print("qual cliente na fila " + curClientNumber);
-            print("quantos na lista " + dayClients.Count);
+            //print("qual cliente na fila " + curClientNumber);
+            //print("quantos na lista " + dayClients.Count);
             curClient = Instantiate(dayClients[curClientNumber], spawnPosition.position, Quaternion.identity);
             curClientNumber++;
         }
@@ -138,5 +138,24 @@ public class clientsHandler : MonoBehaviour
             }
             uniqueIndexes.Add(numToAdd);
         }
+    }
+    public void pay()
+    {
+        StartConversation conv = cutSceneHandle.curCut.GetComponent<StartConversation>();
+        gameManager.playerMoney -= 700;
+        if (gameManager.playerMoney < 0)
+        {
+            print("pagou mal");
+            gameManager.moneyText.text = 0 + " $";
+            StartCoroutine(conv.ShowText(conv.incorrectItemDialogue));
+        }
+        else
+        {
+            print("pagou bem");
+            gameManager.moneyText.text = gameManager.playerMoney + " $";
+            StartCoroutine(conv.ShowText(conv.correctItemDialogue));
+        }
+        conv.payButton.SetActive(false);
+        conv.endGameButton.SetActive(true);
     }
 }
