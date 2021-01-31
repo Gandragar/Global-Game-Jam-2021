@@ -20,8 +20,10 @@ public class clientsHandler : MonoBehaviour
     private int curItensQuantity;
     private List<int> uniqueIndexes = new List<int>();
     private conversationsHandler gameManager;
+    private cutSceneHandler cutSceneHandle;
     private void Start()
     {
+        cutSceneHandle = GetComponent<cutSceneHandler>();
         gameManager = conversationsHandler.current;
         curClientNumber = 9;
         itensQuantity = 6;
@@ -31,10 +33,14 @@ public class clientsHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (curClient == null)
+        if (curClient == null && !gameManager.waitCutScene)
         {
             spawnClient();
+        }else if (gameManager.waitCutScene)
+        {
+            curClient = cutSceneHandle.curCut;
         }
+
     }
 
     private void spawnClient()
@@ -59,12 +65,18 @@ public class clientsHandler : MonoBehaviour
             }
             else
             {
-                print("fim de jogo");
+                Destroy(curClient);
+                clearInventory();
+                GetComponent<cutSceneHandler>().nextCut = true;
             }
         }
     }
     public void destroyClient()
     {
+        if (gameManager.waitCutScene)
+        {
+            gameManager.waitCutScene=false;
+        }
         Destroy(curClient);
     }
     private void fillInventory()
@@ -93,6 +105,13 @@ public class clientsHandler : MonoBehaviour
             }
         }
     }
+    private void clearInventory()
+    {
+        foreach (buttonItemType item in gameManager.itemsButtons)
+        {
+            item.gameObject.SetActive(false);
+        }
+    }
     private void fillDayClientsList()
     {
         if (dayClients != null)
@@ -104,7 +123,7 @@ public class clientsHandler : MonoBehaviour
         for (int i = 0; i < uniqueIndexes.Count; i++)
         {
             dayClients.Add(clientsPrefabs[uniqueIndexes[i]]);
-            print("foi");
+            //print("foi");
         }
     }
 

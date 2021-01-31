@@ -9,6 +9,8 @@ public class StartConversation : MonoBehaviour
     public string Name;
     public Sprite imageIcon;
     public clientsHandler.itemType itemWanted;
+    public bool waitCutScene;
+    public bool isCutSceneFinal;
     [TextArea] public string[] dialogue;
 
     [TextArea] public string correctItemDialogue;
@@ -16,6 +18,8 @@ public class StartConversation : MonoBehaviour
 
     private GameObject nextButton;
     private GameObject endButton;
+    private GameObject endGameButton;
+    private GameObject payButton;
     private TextMeshProUGUI dialogueText;
     private int curIndex;
     private float showChatTimer;
@@ -34,15 +38,23 @@ public class StartConversation : MonoBehaviour
         gameManager = conversationsHandler.current;
         gameManager.curIndex = 0;
         curIndex = 0;
-        dialoguePainel = GameObject.FindGameObjectWithTag("Dialogue");
+        if (waitCutScene)
+            gameManager.waitCutScene = true;
 
+        dialoguePainel = GameObject.FindGameObjectWithTag("Dialogue");
         dialoguePainel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = Name;
         dialoguePainel.transform.GetChild(1).GetComponent<Image>().sprite = imageIcon;
         dialogueText = dialoguePainel.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+
         nextButton = dialoguePainel.transform.GetChild(3).gameObject;
         endButton = dialoguePainel.transform.GetChild(4).gameObject;
+        endGameButton = dialoguePainel.transform.GetChild(5).gameObject;
+        payButton = dialoguePainel.transform.GetChild(6).gameObject;
+
         nextButton.SetActive(false);
         endButton.SetActive(false);
+        endGameButton.SetActive(false);
+        payButton.SetActive(false);
 
         dialoguePainel.transform.position = gameManager.hiddenDialoguePos.position;
         showChatTimer = 1f;
@@ -74,7 +86,15 @@ public class StartConversation : MonoBehaviour
     {
         dialoguePainel.transform.position = gameManager.shownDialoguePos.position;
         if (dialogue.Length <= (gameManager.curIndex + 1))
+        {
             nextButton.SetActive(false);
+            if (waitCutScene)
+                endButton.SetActive(true);
+            if (isCutSceneFinal)
+            {
+                payButton.SetActive(true);
+            }
+        }
         for (int i = 0; i < dialogues.Length+1; i++)
         {
             currentText = dialogues.Substring(0, i);
