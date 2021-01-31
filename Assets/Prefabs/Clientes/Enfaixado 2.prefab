@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &412759663182724857
+--- !u!1 &4540183328498163557
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,39 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3510305506795188507}
-  - component: {fileID: 5126985509388464707}
-  - component: {fileID: 3418777443820422180}
-  - component: {fileID: 3705826818588225375}
-  - component: {fileID: -8530304091845466877}
+  - component: {fileID: 8535565019715899799}
+  - component: {fileID: 5593138807756545917}
+  - component: {fileID: 8268544662528070758}
+  - component: {fileID: 6973035840538686580}
+  - component: {fileID: 8502520577250552983}
+  - component: {fileID: -5025646646632954485}
   m_Layer: 0
-  m_Name: Cano
-  m_TagString: Untagged
+  m_Name: Enfaixado 2
+  m_TagString: Cliente
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3510305506795188507
+--- !u!4 &8535565019715899799
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 412759663182724857}
+  m_GameObject: {fileID: 4540183328498163557}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.77, y: 0.42, z: 0}
-  m_LocalScale: {x: 0.55, y: 0.55, z: 0.55}
+  m_LocalPosition: {x: 5.24, y: -0.54, z: 0}
+  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &5126985509388464707
+--- !u!212 &5593138807756545917
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 412759663182724857}
+  m_GameObject: {fileID: 4540183328498163557}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -72,10 +73,10 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: b387b917d4b671f4e928c0a00b6f4ac5, type: 3}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 89ef997b94221d949948bb74c351f81d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.64, y: 0.64}
@@ -84,56 +85,87 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3418777443820422180
+--- !u!114 &8268544662528070758
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 412759663182724857}
+  m_GameObject: {fileID: 4540183328498163557}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad0be11c96d0cd54ead2dffbc731d0c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c1d59a46ceddfc4fb2797ff22898908, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: 14
---- !u!61 &3705826818588225375
+  Name: Enfaixado
+  imageIcon: {fileID: 21300000, guid: 89ef997b94221d949948bb74c351f81d, type: 3}
+  itemWanted: 1
+  dialogue:
+  - Bom dia, eu perdi um objeto, deixaram aqui?
+  - "Eu uso pro trabalho, mas t\xE1 velho j\xE1 quase n\xE3o funciona e de vez em
+    quando some sozinho."
+  correctItemDialogue: "\xC9 esse ai, brigad\xE3o irm\xE3o!"
+  incorrectItemDialogue: "N\xE3o era bem isso... mas vou levar pra vender e comprar
+    outro!"
+  itemReceived: 0
+--- !u!61 &6973035840538686580
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 412759663182724857}
+  m_GameObject: {fileID: 4540183328498163557}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.93915844, y: -0.21466732}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.92, y: 1.92}
+    oldSize: {x: 20, y: 20}
     newSize: {x: 0.64, y: 0.64}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.64, y: 0.64}
+  m_Size: {x: 5.0616293, y: 15.773855}
   m_EdgeRadius: 0
---- !u!82 &-8530304091845466877
+--- !u!50 &8502520577250552983
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4540183328498163557}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!82 &-5025646646632954485
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 412759663182724857}
+  m_GameObject: {fileID: 4540183328498163557}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 21ea0a8a5b5c79a4ea185a94a09df8cb, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 25980f3dbfee77143ba89d2b2f1bd31d, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

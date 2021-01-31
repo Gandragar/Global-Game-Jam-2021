@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class conversationsHandler : MonoBehaviour
 {
     [HideInInspector] public int curIndex;
     [HideInInspector] public int playerMoney;
+    public TextMeshProUGUI moneyText;
+    public TextMeshProUGUI dayText;
     public List<buttonItemType> itemsButtons = new List<buttonItemType>();
     public Transform hiddenDialoguePos;
     public Transform shownDialoguePos;

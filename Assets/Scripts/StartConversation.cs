@@ -45,10 +45,11 @@ public class StartConversation : MonoBehaviour
         endButton.SetActive(false);
 
         dialoguePainel.transform.position = gameManager.hiddenDialoguePos.position;
-        showChatTimer = 2f;
+        showChatTimer = 1f;
         counter = 0f;
         firstTime = true;
         itemReceived = false;
+        gameManager.moneyText.text = gameManager.playerMoney + " $";
     }
 
     private void Update()
@@ -94,6 +95,7 @@ public class StartConversation : MonoBehaviour
             if (itemWanted == item.item)
             {
                 gameManager.playerMoney += 100;
+                gameManager.moneyText.text = gameManager.playerMoney + " $";
                 StartCoroutine(ShowText(correctItemDialogue));
             }
             else

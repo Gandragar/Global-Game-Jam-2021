@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class clientsHandler : MonoBehaviour
 {
+
     public Transform spawnPosition;
     public List<GameObject> clientsPrefabs = new List<GameObject>();
     public int clientsPerDay;
@@ -53,6 +55,7 @@ public class clientsHandler : MonoBehaviour
                 fillDayClientsList();
                 fillInventory();
                 curDay++;
+                gameManager.dayText.text = "Dia: " + curDay;
             }
             else
             {

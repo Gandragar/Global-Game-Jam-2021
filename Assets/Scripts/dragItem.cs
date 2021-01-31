@@ -29,10 +29,6 @@ public class dragItem : MonoBehaviour
             gameObject.tag = "pickup";
         }
     }
-    public void playSound()
-    {
-        itemSound.Play();
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
