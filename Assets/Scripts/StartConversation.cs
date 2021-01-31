@@ -102,6 +102,11 @@ public class StartConversation : MonoBehaviour
             }
             itemReceived = true;
             endButton.SetActive(true);
+            for (int i = 0; i < gameManager.itemsButtons.Count; i++)
+            {
+                if (item.item == gameManager.itemsButtons[i].item)
+                    gameManager.itemsButtons[i].gameObject.SetActive(false);
+            }
             Destroy(collision.gameObject);
         }
     }

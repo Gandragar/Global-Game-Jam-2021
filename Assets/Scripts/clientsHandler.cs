@@ -16,6 +16,7 @@ public class clientsHandler : MonoBehaviour
     private int curDay;
     private int itensQuantity;
     private int curItensQuantity;
+    private List<int> uniqueIndexes = new List<int>();
     private conversationsHandler gameManager;
     private void Start()
     {
@@ -28,7 +29,7 @@ public class clientsHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (curClient==null)
+        if (curClient == null)
         {
             spawnClient();
         }
@@ -38,8 +39,8 @@ public class clientsHandler : MonoBehaviour
     {
         if (curClientNumber < clientsPerDay)
         {
-            print("quantos clientes atuais" + curClientNumber);
-            print("quantos na lista" + dayClients.Count);
+            print("qual cliente na fila " + curClientNumber);
+            print("quantos na lista " + dayClients.Count);
             curClient = Instantiate(dayClients[curClientNumber], spawnPosition.position, Quaternion.identity);
             curClientNumber++;
         }
@@ -50,7 +51,7 @@ public class clientsHandler : MonoBehaviour
                 print("proximo dia");
                 curClientNumber = 0;
                 fillDayClientsList();
-                //fillInventory();
+                fillInventory();
                 curDay++;
             }
             else
@@ -75,29 +76,45 @@ public class clientsHandler : MonoBehaviour
                 {
                     curItensQuantity++;
                     item.gameObject.SetActive(true);
+                    //print(curItensQuantity);
                 }
             }
         }
-        for (int i = curItensQuantity; i < itensQuantity; i++)
+        for (; curItensQuantity < itensQuantity;)
         {
             int indexx = Random.Range(0, gameManager.itemsButtons.Count);
             if (!gameManager.itemsButtons[indexx].gameObject.activeSelf)
             {
                 gameManager.itemsButtons[indexx].gameObject.SetActive(true);
-                //curItensQuantity++;
+                curItensQuantity++;
             }
         }
     }
     private void fillDayClientsList()
     {
+        if (dayClients != null)
+            dayClients.Clear();
+        if (uniqueIndexes != null)
+            uniqueIndexes.Clear();
+
+        generateUniqueIndex();
+        for (int i = 0; i < uniqueIndexes.Count; i++)
+        {
+            dayClients.Add(clientsPrefabs[uniqueIndexes[i]]);
+            print("foi");
+        }
+    }
+
+    public void generateUniqueIndex()
+    {
         for (int i = 0; i < clientsPerDay; i++)
         {
-            if (dayClients != null)
-                dayClients.Clear();
-            print("foi");
-            int index = Random.Range(0, clientsPrefabs.Count-1);
-            dayClients.Add(clientsPrefabs[index]);
-            print("foi");
+            int numToAdd = Random.Range(0, clientsPrefabs.Count);
+            while (uniqueIndexes.Contains(numToAdd))
+            {
+                numToAdd = Random.Range(0, clientsPrefabs.Count);
+            }
+            uniqueIndexes.Add(numToAdd);
         }
     }
 }
