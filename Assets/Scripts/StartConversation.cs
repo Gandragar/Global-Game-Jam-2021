@@ -71,12 +71,14 @@ public class StartConversation : MonoBehaviour
             counter += Time.deltaTime;
             if (counter >= showChatTimer && firstTime && !itemReceived)
             {
+                StopAllCoroutines();
                 StartCoroutine(ShowText(dialogue[gameManager.curIndex]));
                 firstTime = false;
             }
         }
         else if (curIndex < gameManager.curIndex && dialogue.Length >= (gameManager.curIndex + 1) && !itemReceived)
         {
+            StopAllCoroutines();
             curIndex = gameManager.curIndex;
             StartCoroutine(ShowText(dialogue[gameManager.curIndex]));
         }

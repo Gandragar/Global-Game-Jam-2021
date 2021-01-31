@@ -16,29 +16,12 @@ public class conversationsHandler : MonoBehaviour
     public List<buttonItemType> itemsButtons = new List<buttonItemType>();
     public Transform hiddenDialoguePos;
     public Transform shownDialoguePos;
-    public Image fadePanel;
-    public Image credits;
-    public GameObject Menu;
     public static conversationsHandler current;
-    private float fadeSpeed = 0.01f;
-    private bool isGameEnded = true;
-    //private Button curButton;
     private dragItem curItem;
 
     private void Awake()
     {
         current = this;
-    }
-
-    private void Update()
-    {
-        if(isGameEnded && fadePanel.color.a<=1)
-        {
-            print("ff");
-            Color tempColor = fadePanel.color;
-            tempColor.a = fadeSpeed;
-            fadePanel.color = tempColor;
-        }
     }
 
     public void nextDialogue()
@@ -54,17 +37,6 @@ public class conversationsHandler : MonoBehaviour
     }
     public void endGame()
     {
-        Fade();
-        isGameEnded = true;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
-    public void Fade()
-    {
-        Menu.SetActive(true);
-    }
-
-    public void goMenu()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-    }
-
 }
