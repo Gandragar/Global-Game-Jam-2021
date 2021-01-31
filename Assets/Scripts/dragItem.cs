@@ -5,7 +5,7 @@ using UnityEngine;
 public class dragItem : MonoBehaviour
 {
     public clientsHandler.itemType item;
-    //public GameObject slot;
+    private AudioSource itemSound;
     private Color red = new Color(1f, 0.35f, 0.35f, 0.8f);
     private Color normal = new Color(1f, 1f, 1f, 0.8f);
     private bool readyToDrop;
@@ -14,6 +14,7 @@ public class dragItem : MonoBehaviour
     void Start()
     {
         GetComponent<SpriteRenderer>().color = red;
+        itemSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -27,6 +28,10 @@ public class dragItem : MonoBehaviour
         {
             gameObject.tag = "pickup";
         }
+    }
+    public void playSound()
+    {
+        itemSound.Play();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
